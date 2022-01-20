@@ -1,0 +1,10 @@
+.profile__section-left {
+  display: flex;
+}
+
+@media screen and (max-width: 621px) {
+  .profile__section-left {
+    width: 100%;
+    flex-direction: column;
+  }
+}

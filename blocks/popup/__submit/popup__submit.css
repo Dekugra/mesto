@@ -1,0 +1,16 @@
+.popup__submit {
+  width: 358px;
+  height: 50px;
+  background: #000;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.22;
+  font-weight: normal;
+  text-align: center;
+  align-self: center;
+}
+
+.popup__submit:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}

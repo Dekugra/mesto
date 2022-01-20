@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/index.css" />
+    <title>Mesto</title>
+  </head>
+  <body class="body">
+    <div class="page">
+      <header class="header">
+        <div class="header__logo"></div>
+        <div class="header__line"></div>
+      </header>
+      <main class="content">
+        <section class="profile">
+          <div class="profile__section-left">
+            <img src="./images/Konyukhov.jpg" alt="фото Жак-Ива Кусто" class="profile__avatar" />
+            <div class="profile__info">
+              <h1 class="profile__title">Фёдор Конюхов</h1>
+              <button type="button" class="profile__edit-button"></button>
+              <p class="profile__subtitle">Путешественник по России</p>
+            </div>
+          </div>
+          <button class="profile__add-button">+</button>
+        </section>
+        <section class="elements">
+          <ul class="elements__items">
+            <li class="element">
+              <figure class="element__card">
+                <img src="./images/Sheregesh.jpg" class="element__image" alt="старинный каменный дом в горах" />
+                <figcaption class="element__title">
+                  <h2 class="element__text">Шерегеш</h2>
+                  <button class="element__like" type="button"></button>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="element">
+              <figure class="element__card">
+                <img src="./images/Sochi.jpg" alt="гора Эльбрус в лучах заката" class="element__image" />
+                <figcaption class="element__title">
+                  <h2 class="element__text">Сочи</h2>
+                  <button class="element__like" type="button"></button>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="element">
+              <figure class="element__card">
+                <img src="./images/Yalta.jpg" alt="горы Домбая в снегах и облаках" class="element__image" />
+                <figcaption class="element__title">
+                  <h2 class="element__text">Ялта</h2>
+                  <button class="element__like" type="button"></button>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="element">
+              <figure class="element__card">
+                <img src="./images/Kamchatka.jpg" alt="старинный каменный дом в горах" class="element__image" />
+                <figcaption class="element__title">
+                  <h2 class="element__text">Камчатка</h2>
+                  <button class="element__like" type="button"></button>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="element">
+              <figure class="element__card">
+                <img src="./images/Kareliya.jpg" alt="гора Эльбрус в лучах заката" class="element__image" />
+                <figcaption class="element__title">
+                  <h2 class="element__text">Карелия</h2>
+                  <button class="element__like" type="button"></button>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="element">
+              <figure class="element__card">
+                <img src="./images/Baykal.jpg" alt="горы Домбая в снегах и облаках" class="element__image" />
+                <figcaption class="element__title">
+                  <h2 class="element__text">Байкал</h2>
+                  <button class="element__like" type="button"></button>
+                </figcaption>
+              </figure>
+            </li>
+          </ul>
+        </section>
+      </main>
+      <footer class="footer">© 2020 Mesto Russia</footer>
+      <div class="popup">
+        <div class="popup__container">
+          <button class="popup__close" type="button">
+            <img src="./images/Close.svg" alt="закрыть" />
+          </button>
+          <h3 class="popup__title">Редактировать профиль</h3>
+          <input type="text" class="popup__username" name="username" placeholder="Введите имя" value="Фёдор Конюхов" required />
+          <input type="text" class="popup__about" name="about" value="Путешественник по России" placeholder="Кратко о себе" />
+          <button class="popup__submit" type="submit">Сохранить</button>
+        </div>
+      </div>
+    </div>
+    <script src="./scripts/index.js"></script>
+  </body>
+</html>
