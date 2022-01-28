@@ -2,6 +2,7 @@
   width: 100%;
   min-height: 71px;
   margin-bottom: 40px;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
   color: #fff;
 }
 
@@ -9,5 +10,6 @@
   .header {
     min-height: 56px;
     margin-bottom: 36px;
+    padding-top: 5px;
   }
 }

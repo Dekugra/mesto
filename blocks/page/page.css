@@ -10,6 +10,8 @@
   padding-top: 45px;
   color: #fff;
   background-color: #000;
+  display: flex;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 1024px) {
@@ -19,6 +21,6 @@
 }
 @media screen and (max-width: 620px) {
   .page {
-    padding: 34px 0 0;
+    padding: 28px 19px 0;
   }
 }

@@ -3,7 +3,7 @@
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 282px);
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   row-gap: 20px;
   column-gap: 17px;
   justify-content: center;
@@ -11,6 +11,6 @@
 
 @media screen and (max-width: 621px) {
   .elements__items {
-    margin: 0 auto 48px;
+    margin-bottom: 48px;
   }
 }

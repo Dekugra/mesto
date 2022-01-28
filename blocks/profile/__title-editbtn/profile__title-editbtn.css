@@ -1,0 +1,9 @@
+.profile__title-editbtn {
+  display: flex;
+}
+
+@media screen and (max-width: 720px) {
+  .profile__title-editbtn {
+    justify-content: center;
+  }
+}

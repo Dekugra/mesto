@@ -1,9 +1,10 @@
-.popup__username {
+.popup__input {
   font-size: 14px;
   line-height: 1.21;
-  font-weight: normal;
+  font-weight: 400;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   height: 27px;
   margin-bottom: 30px;
+  outline: none;
 }

@@ -2,11 +2,18 @@
   margin-bottom: 50px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@media screen and (max-width: 880px) {
+  .profile {
+    flex-direction: column;
+  }
 }
 
 @media screen and (max-width: 621px) {
   .profile {
     margin-bottom: 36px;
-    flex-direction: column;
   }
 }
