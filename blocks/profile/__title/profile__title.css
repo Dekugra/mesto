@@ -12,7 +12,9 @@
   .profile__title {
     font-size: 27px;
     line-height: 1.22;
-    margin: 0 10px 10px 0;
+    margin: 0 0 10px 0;
     width: 80%;
+    text-align: end;
+    margin-right: 10px;
   }
 }
