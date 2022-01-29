@@ -1,5 +1,6 @@
 .element__like {
   background-image: url(../../../images/Heart.svg);
+  background-color: rgba(255, 255, 255, 0);
   border: none;
   padding: 0;
   width: 22px;

@@ -1,13 +1,13 @@
-let profileOpenPopupButton = document.querySelector('.profile__edit-button');
-let popupCloseButton = document.querySelector('.popup__close');
-let popup = document.querySelector('.popup');
-let popupSubmit = document.querySelector('.popup__submit');
-let popupForm = document.querySelector('.popup__form');
-let profileName = document.querySelector('.profile__title');
-let profileAbout = document.querySelector('.profile__subtitle');
-let popupUserName = document.querySelector('.popup__input_username');
-let popupUserAbout = document.querySelector('.popup__input_about');
-let elementLikeButton = document.querySelector('.element__like');
+const profileOpenPopupButton = document.querySelector('.profile__edit-button');
+const popupCloseButton = document.querySelector('.popup__close');
+const popup = document.querySelector('.popup');
+const popupSubmit = document.querySelector('.popup__submit');
+const popupForm = document.querySelector('.popup__form');
+const profileName = document.querySelector('.profile__title');
+const profileAbout = document.querySelector('.profile__subtitle');
+const popupUserName = document.querySelector('.popup__input_type_username');
+const popupUserAbout = document.querySelector('.popup__input_type_about');
+const elementLikeButton = document.querySelector('.element__like');
 
 function openPopup() {
   popup.classList.add('popup_opened');
@@ -38,8 +38,8 @@ popupForm.addEventListener('submit', submitPopup);
 //   }
 // })
 
-function likedButton() {
-  elementLikeButton.classList.toggle('element__like_liked');
-}
+// function likedButton() {
+//   elementLikeButton.classList.toggle('element__like_liked');
+// }
 
-elementLikeButton.addEventListener('click', likedButton);
+// elementLikeButton.addEventListener('click', likedButton);

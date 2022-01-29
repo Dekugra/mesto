@@ -1,9 +1,9 @@
-.profile__section-left {
+.profile__section-content {
   display: flex;
 }
 
 @media screen and (max-width: 720px) {
-  .profile__section-left {
+  .profile__section-content {
     width: 100%;
     flex-direction: column;
     align-items: center;

@@ -11,11 +11,10 @@
     <div class="page">
       <header class="header">
         <div class="header__logo"></div>
-        <div class="header__line"></div>
       </header>
       <main class="content">
         <section class="profile">
-          <div class="profile__section-left">
+          <div class="profile__section-content">
             <img src="./images/Konyukhov.jpg" alt="фото Жак-Ива Кусто" class="profile__avatar" />
             <div class="profile__info">
               <div class="profile__title-editbtn">
@@ -94,8 +93,8 @@
           <button class="popup__close" type="button" aria-label="Закрыть"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
           <form class="popup__form" method="get" name="popup">
-            <input type="text" class="popup__input popup__input_username" name="username" placeholder="Введите имя" value="Фёдор Конюхов" maxlength="30" required />
-            <input type="text" class="popup__input popup__input_about popup__input_marginbottom" name="about" value="Путешественник по России" maxlength="30" placeholder="Кратко о себе" required />
+            <input type="text" class="popup__input popup__input_type_username" name="username" placeholder="Введите имя" value="Фёдор Конюхов" maxlength="30" required />
+            <input type="text" class="popup__input popup__input_type_about" name="about" value="Путешественник по России" maxlength="30" placeholder="Кратко о себе" required />
             <button class="popup__submit" type="submit">Сохранить</button>
           </form>
         </div>

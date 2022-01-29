@@ -14,13 +14,8 @@
   flex-direction: column;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 720px) {
   .page {
-    padding: 45px 20px 0;
-  }
-}
-@media screen and (max-width: 620px) {
-  .page {
-    padding: 28px 19px 0;
+    padding-top: 28px;
   }
 }
