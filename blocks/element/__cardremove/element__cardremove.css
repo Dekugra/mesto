@@ -1,0 +1,14 @@
+.element__cardremove {
+  position: absolute;
+  width: 18px;
+  height: 19px;
+  background: url(../../../images/Trash.svg) no-repeat center/cover;
+  top: 20px;
+  right: 20px;
+  border: 0;
+}
+
+.element__cardremove:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
