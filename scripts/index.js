@@ -47,11 +47,6 @@ const initialCards = [
   },
 ];
 
-function clearPopupEditInputs() {
-  popupUserName.value = '';
-  popupUserAbout.value = '';
-}
-
 function clearPopupAddInputs() {
   popupNewCardName.value = '';
   popupNewCardSource.value = '';
@@ -67,14 +62,18 @@ function addToProfileValues() {
   profileAbout.textContent = popupUserAbout.value;
 }
 
+function addToPopupEditValues() {
+  popupUserName.value = profileName.textContent;
+  popupUserAbout.value = profileAbout.textContent;
+}
+
 profileEditButton.addEventListener('click', function () {
   openPopup(popupEdit);
-  clearPopupEditInputs();
+  addToPopupEditValues();
 });
 
 profileAddNewCardButton.addEventListener('click', function () {
   openPopup(popupNewCard);
-  clearPopupAddInputs();
 });
 
 // Close
@@ -146,15 +145,16 @@ function addListeners(el) {
 }
 
 function addItem(event) {
-  const newCard = templateContent.cloneNode(true);
-  const newCardImage = newCard.querySelector('.element__image');
-  const newCardName = newCard.querySelector('.element__text');
   event.preventDefault();
-  newCardName.textContent = popupNewCardName.value;
-  newCardImage.alt = popupNewCardName.value;
-  newCardImage.src = popupNewCardSource.value;
-  addListeners(newCard);
-  cardsParent.prepend(newCard);
+  const cardData = {
+    name: '',
+    link: '',
+  };
+  cardData.name = popupNewCardName.value;
+  cardData.link = popupNewCardSource.value;
+  createCard(cardData);
+  renderItem(cardData);
+  clearPopupAddInputs();
   closePopup(popupNewCard);
 }
 
