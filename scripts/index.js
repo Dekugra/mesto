@@ -123,15 +123,15 @@ function renderItem(item) {
   cardsParent.prepend(newItem);
 }
 
-function deleteHandle(event) {
+function handleDelete(event) {
   event.target.closest('.element').remove();
 }
 
-function likeHandle(event) {
+function handleLike(event) {
   event.target.classList.toggle('element__like_liked');
 }
 
-function showHandle(event) {
+function openImagePopup(event) {
   openPopup(popupShow);
   popupShowImage.src = event.target.src;
   popupShowImage.alt = event.target.alt;
@@ -139,9 +139,9 @@ function showHandle(event) {
 }
 
 function addListeners(el) {
-  el.querySelector('.element__cardremove').addEventListener('click', deleteHandle);
-  el.querySelector('.element__like').addEventListener('click', likeHandle);
-  el.querySelector('.element__image').addEventListener('click', showHandle);
+  el.querySelector('.element__cardremove').addEventListener('click', handleDelete);
+  el.querySelector('.element__like').addEventListener('click', handleLike);
+  el.querySelector('.element__image').addEventListener('click', openImagePopup);
 }
 
 function addItem(event) {
@@ -152,7 +152,6 @@ function addItem(event) {
   };
   cardData.name = popupNewCardName.value;
   cardData.link = popupNewCardSource.value;
-  createCard(cardData);
   renderItem(cardData);
   clearPopupAddInputs();
   closePopup(popupNewCard);
