@@ -40,11 +40,13 @@
       <div class="popup__container">
         <button class="popup__close popup__close_type_edit" type="button" aria-label="Закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form class="popup__form popup__form_type_edit" method="get" name="popupedit">
-          <input type="text" class="popup__input popup__input_type_username" name="username" placeholder="Введите имя"
-            value="Фёдор Конюхов" maxlength="30" required />
-          <input type="text" class="popup__input popup__input_type_about" name="about" value="Путешественник по России"
-            placeholder="Кратко о себе" required />
+        <form class="popup__form popup__form_type_edit" method="get" name="popupedit" novalidate>
+          <input id="username" type="text" class="popup__input popup__input_type_username" name="username" placeholder="Введите имя"
+            value="" minlength="2" maxlength="40" required />
+          <span id="error-username" class="error-massage error-massage_visible error-massage error-massage_type_username"></span>
+          <input id="about" type="text" class="popup__input popup__input_type_about" name="about" value=""
+            placeholder="Кратко о себе" required minlength="2" maxlength="200" />
+          <span id="error-about" class="error-massage error-massage_visible"></span>
           <button class="popup__submit" type="submit">Сохранить</button>
         </form>
       </div>
@@ -53,11 +55,13 @@
       <div class="popup__container">
         <button class="popup__close popup__close_type_addcard" type="button" aria-label="закрыть"></button>
         <h3 class="popup__title">Новое место</h3>
-        <form class="popup__form popup__form_type_addcard" method="get" name="newcard">
-          <input type="text" class="popup__input popup__input_type_cardname" name="card" placeholder="Название" value=""
+        <form class="popup__form popup__form_type_addcard" method="get" name="newcard" novalidate>
+          <input id="cardname" type="text" class="popup__input popup__input_type_cardname" name="card" placeholder="Название" value="" minlength="2"
             maxlength="30" required />
-          <input type="text" class="popup__input popup__input_type_source" name="source"
+          <span id="error-cardname" class="error-massage error-massage_visible"></span>
+          <input id="source" type="url" class="popup__input popup__input_type_source" name="source"
             placeholder="Ссылка на картинку" value="" required />
+          <span id="error-source" class="error-massage error-massage_visible"></span>
           <button class="popup__submit" type="submit">Создать</button>
         </form>
       </div>
@@ -81,6 +85,7 @@
     </li>
   </template>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>

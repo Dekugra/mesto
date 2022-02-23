@@ -37,3 +37,7 @@
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__containershow/popup__containershow.css);
 @import url(../blocks/popup/__titleshow/popup__titleshow.css);
+@import url(../blocks/error-massage/error-massage.css);
+@import url(../blocks/error-massage/_visible/error-massage_visible.css);
+@import url(../blocks/popup/__input/_type_error/popup__input_type_error.css);
+@import url(../blocks/popup/__submit/_disabled/popup__submit_disabled.css);
