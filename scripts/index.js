@@ -30,7 +30,7 @@ function clearPopupAddInputs() {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEscape);
-  document.removeEventListener('keydown', handleOverlayPopup);
+  document.removeEventListener('mousedown', handleOverlayPopup);
 }
 
 popupEditCloseButton.addEventListener('click', function () {
@@ -52,22 +52,18 @@ function closePopupByEscape(event) {
   }
 }
 
-function handlePopup(popup) {
-  window.onkeydown = (event) => closePopupByEscape(event);
-}
-
-function handleOverlayPopup(popup) {
-  popup.addEventListener('click', (event) => {
-    if (event.target === popup) closePopup(popup);
-  });
+function handleOverlayPopup(evt) {
+  if (evt.target.classList.contains('popup')) {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
 }
 
 // Open
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  handlePopup(popup);
-  handleOverlayPopup(popup);
   document.addEventListener('keydown', closePopupByEscape);
+  document.addEventListener('mousedown', handleOverlayPopup);
 }
 
 function addToProfileValues() {
