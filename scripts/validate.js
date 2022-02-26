@@ -47,7 +47,6 @@ function enableValidation(set) {
     const submitButton = formElement.querySelector(set.submitButtonSelector);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', (evt) => checkInputValidity(inputElement, set, formElement, submitButton));
-      inputElement.addEventListener('keydown', (evt) => evt.stopPropagation());
     });
   });
 }
