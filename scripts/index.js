@@ -1,7 +1,7 @@
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
 import { initialCards, settingsObject } from './initial-data.js';
-import { openPopup, closePopup, closePopupByEscape, handleOverlayPopup } from './utils.js';
+import { openPopup, closePopup, handlePopupClose } from './utils.js';
 import {
   profileEditButton,
   profileName,
@@ -30,37 +30,10 @@ import {
 const editProfileValidator = new FormValidator(settingsObject, popupEditForm);
 const addCardValidator = new FormValidator(settingsObject, popupNewCardForm);
 
-editProfileValidator.enableValidation();
-addCardValidator.enableValidation();
-
-function validateOpenForm(form) {
-  const errorMessage = form.querySelectorAll(settingsObject.errorSelector);
-  errorMessage.forEach((item) => {
-    item.textContent = '';
-    item.classList.remove(settingsObject.errorClass);
-  });
-  const errorInput = form.querySelectorAll(settingsObject.inputSelector);
-  errorInput.forEach((item) => {
-    item.classList.remove(settingsObject.inputErrorClass);
-  });
-}
-
 function clearPopupAddInputs() {
   popupNewCardName.value = '';
   popupNewCardSource.value = '';
 }
-
-popupEditCloseButton.addEventListener('click', function () {
-  closePopup(popupEdit);
-});
-
-popupNewCardCloseButton.addEventListener('click', function () {
-  closePopup(popupNewCard);
-});
-
-popupShowCloseButton.addEventListener('click', function () {
-  closePopup(popupShow);
-});
 
 function addToProfileValues() {
   profileName.textContent = popupUserName.value;
@@ -72,21 +45,18 @@ function addToPopupEditValues() {
   popupUserAbout.value = profileAbout.textContent;
 }
 
-function disableSubmitButton() {
-  popupNewCardSubmitButton.setAttribute('disabled', true);
-  popupNewCardSubmitButton.classList.add('popup__submit_disabled');
-}
-
 profileEditButton.addEventListener('click', function () {
   openPopup(popupEdit);
-  validateOpenForm(popupEdit);
+  editProfileValidator.enableValidation();
+  editProfileValidator.resetValidation();
   addToPopupEditValues();
 });
 
 profileAddNewCardButton.addEventListener('click', function () {
   openPopup(popupNewCard);
-  disableSubmitButton();
-  validateOpenForm(popupNewCard);
+  addCardValidator.deactivateSubmitButton();
+  addCardValidator.enableValidation();
+  addCardValidator.resetValidation();
 });
 
 function submitPopupEdit(evt) {
@@ -94,31 +64,6 @@ function submitPopupEdit(evt) {
   addToProfileValues();
   closePopup(popupEdit);
 }
-
-popupEditForm.addEventListener('submit', submitPopupEdit);
-popupNewCardForm.addEventListener('submit', addItem);
-
-function openPopupShow(name, link) {
-  popupShowImage.src = link;
-  popupShowImage.alt = name;
-  popupShowTitle.textContent = name;
-
-  openPopup(popupShow);
-}
-
-function handleCardClick() {
-  popupShow.addEventListener('click', () => {
-    openPopupShow(name, link);
-  });
-}
-
-const createCard = (name, link) => {
-  const card = new Card(name, link, '.newcard-template');
-  const cardElement = card.createCard();
-
-  cardsParent.prepend(cardElement);
-  return cardElement;
-};
 
 function addItem(event) {
   event.preventDefault();
@@ -133,6 +78,25 @@ function addItem(event) {
   closePopup(popupNewCard);
 }
 
+popupEditForm.addEventListener('submit', submitPopupEdit);
+popupNewCardForm.addEventListener('submit', addItem);
+
+function handlePopupShowClick(name, link) {
+  popupShowImage.src = link;
+  popupShowImage.alt = name;
+  popupShowTitle.textContent = name;
+}
+
+function getCard(place, source) {
+  const card = new Card(place, source, '.newcard-template', handlePopupShowClick(place, source));
+  return card.createCard();
+}
+
+const createCard = (name, link) => {
+  const cardElement = getCard(name, link);
+  cardsParent.prepend(cardElement);
+};
+
 initialCards.forEach((item) => {
-  const card = createCard(item.name, item.link);
+  createCard(item.name, item.link);
 });
