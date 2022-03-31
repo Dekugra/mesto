@@ -1,7 +1,7 @@
 import { FormValidator } from './FormValidator.js';
 import { Card } from './Card.js';
 import { initialCards, settingsObject } from './initial-data.js';
-import { openPopup, closePopup, handlePopupClose } from './utils.js';
+import { openPopup, closePopup } from './utils.js';
 import {
   profileEditButton,
   profileName,
@@ -30,6 +30,9 @@ import {
 const editProfileValidator = new FormValidator(settingsObject, popupEditForm);
 const addCardValidator = new FormValidator(settingsObject, popupNewCardForm);
 
+editProfileValidator.enableValidation();
+addCardValidator.enableValidation();
+
 function clearPopupAddInputs() {
   popupNewCardName.value = '';
   popupNewCardSource.value = '';
@@ -45,9 +48,25 @@ function addToPopupEditValues() {
   popupUserAbout.value = profileAbout.textContent;
 }
 
+function handlePopupClose() {
+  const popups = document.querySelectorAll('.popup');
+
+  popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        closePopup(popup);
+      }
+      if (evt.target.classList.contains('popup__close')) {
+        closePopup(popup);
+      }
+    });
+  });
+}
+
+handlePopupClose();
+
 profileEditButton.addEventListener('click', function () {
   openPopup(popupEdit);
-  editProfileValidator.enableValidation();
   editProfileValidator.resetValidation();
   addToPopupEditValues();
 });
@@ -55,7 +74,6 @@ profileEditButton.addEventListener('click', function () {
 profileAddNewCardButton.addEventListener('click', function () {
   openPopup(popupNewCard);
   addCardValidator.deactivateSubmitButton();
-  addCardValidator.enableValidation();
   addCardValidator.resetValidation();
 });
 
@@ -85,10 +103,12 @@ function handlePopupShowClick(name, link) {
   popupShowImage.src = link;
   popupShowImage.alt = name;
   popupShowTitle.textContent = name;
+
+  openPopup(popupShow);
 }
 
 function getCard(place, source) {
-  const card = new Card(place, source, '.newcard-template', handlePopupShowClick(place, source));
+  const card = new Card(place, source, '.newcard-template', handlePopupShowClick);
   return card.createCard();
 }
 

@@ -1,6 +1,3 @@
-import { popupShowImage, popupShowTitle, popupShow } from './constants.js';
-import { openPopup } from './utils.js';
-
 export class Card {
   constructor(title, source, cardTemplateSelector, handleImageClick) {
     this._name = title;
@@ -32,7 +29,6 @@ export class Card {
   }
 
   _fillCard() {
-    console.log(this._name, this._link);
     this._cardName.textContent = this._name;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
