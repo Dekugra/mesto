@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
+  <link rel="stylesheet" href="../src/pages/index.css" />
   <title>Mesto</title>
 </head>
 
@@ -17,7 +17,7 @@
     <main class="content">
       <section class="profile">
         <div class="profile__section-content">
-          <img src="./images/Konyukhov.jpg" alt="фото Жак-Ива Кусто" class="profile__avatar" />
+          <img src="<%=require('./images/Konyukhov.jpg')%>" alt="фото Жак-Ива Кусто" class="profile__avatar" />
           <div class="profile__info">
             <div class="profile__title-editbtn">
               <h1 class="profile__title">Федор Конюхов</h1>
@@ -80,12 +80,11 @@
       <button class="element__cardremove" type="button" aria-label="удалить"></button>
       <img src="#" class="element__image" alt="#" />
       <div class="element__title">
-        <h2 class="element__text">Шерегеш</h2>
+        <h2 class="element__text"></h2>
         <button class="element__like" type="button" aria-label="поставить лайк"></button>
       </div>
     </li>
   </template>
-  <!-- <script type="module" src="./scripts/index.js"></script> -->
 </body>
 
 </html>
