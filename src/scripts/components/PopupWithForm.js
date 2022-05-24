@@ -7,15 +7,15 @@ export class PopupWithForm extends Popup {
 
     this._formSubmit = formSubmit;
     this._form = this._popup.querySelector(settingsObject.formSelector);
-    this._inputList = Array.from(this._form.querySelector(settingsObject.inputSelector));
+    this._inputList = Array.from(this._form.querySelectorAll(settingsObject.inputSelector));
   }
 
-  _getInputValues() {
-    this._values = {};
+  getInputValues() {
+    this._inputsValues = {};
     this._inputList.forEach((inputElement) => {
-      this._values[inputElement.name] = inputElement.value;
+      this._inputsValues[inputElement.name] = inputElement.value;
     });
-    return this._values;
+    return this._inputsValues;
   }
 
   close() {
@@ -26,21 +26,20 @@ export class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', (event) => {
-      this._formSubmit(this._getInputValues());
+      event.preventDefault();
+      this._formSubmit(this.getInputValues());
       this.close();
-    });
-  }
-
-  setInputValues(item) {
-    this._inputList.forEach((inputElement) => {
-      const value = item[inputElement.name];
-      if (value) {
-        inputElement.value = value;
-      }
     });
   }
 
   getForm() {
     return this._form;
+  }
+
+  setInputValues(values) {
+    this._inputList.forEach((inputElement) => {
+      const value = values[inputElement.name];
+      inputElement.value = value;
+    });
   }
 }
