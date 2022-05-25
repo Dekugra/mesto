@@ -36,18 +36,16 @@ function handleCardClick(evt) {
 function handleClickProfileBtnEdit() {
   popupEditProfileValidator.resetValidation();
   popupEditProfile.open();
+  popupEditProfile.setInputValues(userDescription.getUserInfo());
 }
 
-function handleSubmitEditProfileForm() {
-  popupEditProfile.getForm().addEventListener('submit', userDescription.setUserInfo(popupEditProfile.getInputValues()));
+function handleSubmitEditProfileForm(data) {
+  userDescription.setUserInfo(data);
 }
 
-function handleSubmitAddNewCardForm() {
-  let newCardInfo = popupAddNewCard.getInputValues();
+function handleSubmitAddNewCardForm(data) {
   popupAddNewCardValidator.resetValidation();
-
-  const sectionNewCard = new Section({ items: newCardInfo, renderer: generateCard }, '.elements__items');
-  sectionNewCard.addItem('prepend', generateCard(newCardInfo));
+  section.addItem('prepend', generateCard(data));
 }
 
 function handleClickProfileBtnAdd() {

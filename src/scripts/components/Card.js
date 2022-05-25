@@ -14,6 +14,7 @@ export class Card {
 
   _handleDelete = () => {
     this._cardElement.remove();
+    this._element = null;
   };
 
   _handleLike = () => {
