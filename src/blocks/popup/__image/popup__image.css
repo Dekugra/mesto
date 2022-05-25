@@ -3,5 +3,5 @@
   max-width: 75vw;
   max-height: 75vh;
   margin-bottom: 10px;
-  object-fit: cover;
+  object-fit: contain;
 }
