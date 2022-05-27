@@ -14,4 +14,4 @@
 Проект создан по методологии БЕМ.
 В проекте используется JavaScript.
 
-Ссылка: (https://dekugra.github.io/mesto/index.html)
+Ссылка: https://dekugra.github.io/mesto
