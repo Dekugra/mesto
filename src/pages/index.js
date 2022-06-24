@@ -42,9 +42,9 @@ const popupAddNewCard = new PopupWithForm('.popup_type_addcard', handleSubmitAdd
 popupAddNewCard.setEventListeners();
 const popupFullImage = new PopupWithImage('.popup_type_show');
 popupFullImage.setEventListeners();
-const popupEditAvatar = new PopupWithForm('.popup__editavatar', handleSubmitNewAvatar);
+const popupEditAvatar = new PopupWithForm('.popup_type_editavatar', handleSubmitNewAvatar);
 popupEditAvatar.setEventListeners();
-const popupDeleteCard = new PopupWithForm('.popup__deletecard', handleSubmitDeleteCard);
+const popupDeleteCard = new PopupWithForm('.popup_type_deletecard', handleSubmitDeleteCard);
 
 const popupEditProfileValidator = new FormValidator(settingsObject, popupEditProfile.getForm());
 popupEditProfileValidator.enableValidation();
