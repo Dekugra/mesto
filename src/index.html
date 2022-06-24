@@ -16,7 +16,7 @@
     <main class="content">
       <section class="profile">
         <div class="profile__section-content">
-          <img src="<%=require('./images/Konyukhov.jpg')%>" alt="фото Жак-Ива Кусто" class="profile__avatar" />
+          <img src="<%=require('./images/Konyukhov.jpg')%>" alt="фото Фёдор Конюхов" class="profile__avatar" />
           <div class="profile__info">
             <div class="profile__title-editbtn">
               <h1 class="profile__title">Федор Конюхов</h1>
@@ -40,7 +40,7 @@
         <button class="popup__close popup__close_type_edit" type="button" aria-label="Закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="popup__form popup__form_type_edit" method="get" name="popupedit" novalidate>
-          <input id="username" type="text" class="popup__input popup__input_type_username" name="username"
+          <input id="username" type="text" class="popup__input popup__input_type_username" name="name"
             placeholder="Введите имя" value="" minlength="2" maxlength="40" required />
           <span id="error-username"
             class="error-massage error-massage_visible error-massage error-massage_type_username"></span>
@@ -71,6 +71,27 @@
         <button class="popup__close popup__close_type_show" type="button" aria-label="Закрыть"></button>
         <img src="#" alt="#" class="popup__image">
         <h3 class="popup__titleshow">Место</h3>
+      </div>
+    </section>
+    <section class="popup popup__editavatar">
+      <div class="popup__container">
+        <button class="popup__close popup__close_type_editavatar" type="button" aria-label="закрыть"></button>
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form class="popup__form popup__form_type_editavatar" name="editavatar" novalidate>
+          <input type="url" class="popup__input popup__input_type_editavatar" name="avatar" id="userfoto"
+            placeholder="Ссылка на фото пользователя" required>
+          <span class="error-massage error-massage_visible"></span>
+          <button class="popup__submit popup__submit_type_editavatar" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </section>
+    <section class="popup popup__deletecard">
+      <div class="popup__container">
+        <button class="popup__close popup__close_type_deletecard" type="button" aria-label="закрыть"></button>
+        <h3 class="popup__title">Вы уверены?</h3>
+        <form class="popup__form" name="deletecard" novalidate>
+          <button class="popup__submit popup__submit_type_deletecard" type="submit">Да</button>
+        </form>
       </div>
     </section>
   </div>
