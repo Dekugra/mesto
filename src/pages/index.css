@@ -24,6 +24,7 @@
 @import url(../blocks/element/__like/element__like.css);
 @import url(../blocks/element/__like/_liked/element__like_liked.css);
 @import url(../blocks/element/__cardremove/element__cardremove.css);
+@import url(../blocks/element/__cardremove/__cardremove_hidden/element__cardremove_hidden.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);
 @import url(../blocks/popup/popup.css);

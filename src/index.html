@@ -17,6 +17,7 @@
       <section class="profile">
         <div class="profile__section-content">
           <img src="<%=require('./images/Konyukhov.jpg')%>" alt="фото Фёдор Конюхов" class="profile__avatar" />
+          <div class="profile__avatar-editbtn"></div>
           <div class="profile__info">
             <div class="profile__title-editbtn">
               <h1 class="profile__title">Федор Конюхов</h1>
@@ -97,11 +98,12 @@
   </div>
   <template class="newcard-template">
     <li class="element">
-      <button class="element__cardremove" type="button" aria-label="удалить"></button>
+      <button class="element__cardremove element__cardremove_hidden" type="button" aria-label="удалить"></button>
       <img src="#" class="element__image" alt="#" />
       <div class="element__title">
         <h2 class="element__text"></h2>
         <button class="element__like" type="button" aria-label="поставить лайк"></button>
+        <p class="element__like-total"></p>
       </div>
     </li>
   </template>

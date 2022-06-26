@@ -1,29 +1,33 @@
 export class UserInfo {
-  constructor(profileAbout, profileAvatar, profileCohort, profileName, profileId) {
+  constructor(profileName, profileAbout, profileAvatar) {
+    this._name = document.querySelector(profileName);
     this._about = document.querySelector(profileAbout);
     this._avatar = document.querySelector(profileAvatar);
-    this._cohort = profileCohort;
-    this._name = document.querySelector(profileName);
-    this._id = profileId;
+    this._id = 0;
   }
 
   getUserInfo() {
-    const userInfo = {
-      about: this._about.textContent,
-      avatar: this._avatar.src,
-      cohort: this._cohort,
+    return {
       name: this._name.textContent,
-      _id: this._id,
+      about: this._about.textContent,
     };
-
-    return userInfo;
   }
 
-  setUserInfo(object) {
-    this._about.textContent = object.about;
-    this._avatar.src = object.avatar;
-    this._cohort = object.cohort;
-    this._name.textContent = object.name;
-    this._id = object._id;
+  setUserInfo({ _id, name, about }) {
+    this._name.textContent = name;
+    this._about.textContent = about;
+    this._id = _id;
+  }
+
+  getOwnerId() {
+    return this._id;
+  }
+
+  getAvatar() {
+    return this._avatar.src;
+  }
+
+  setAvatar(avatar) {
+    this._avatar.src = avatar;
   }
 }
