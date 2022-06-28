@@ -9,6 +9,8 @@
   background-position: center;
   background-size: 22px 22px;
   align-self: center;
+  position: absolute;
+  right: 0;
 }
 
 @media screen and (max-width: 637px) {

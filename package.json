@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve",
+    "debug": "NODE_OPTIONS='--inspect' webpack serve",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },

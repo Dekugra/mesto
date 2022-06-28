@@ -1,5 +1,6 @@
 .profile__section-content {
   display: flex;
+  position: relative;
 }
 
 @media screen and (max-width: 720px) {

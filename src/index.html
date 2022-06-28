@@ -15,16 +15,14 @@
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__section-content">
-          <img src="<%=require('./images/Konyukhov.jpg')%>" alt="фото Фёдор Конюхов" class="profile__avatar" />
-          <div class="profile__avatar-editbtn"></div>
-          <div class="profile__info">
-            <div class="profile__title-editbtn">
-              <h1 class="profile__title">Федор Конюхов</h1>
-              <button type="button" class="profile__edit-button" aria-label="редактировать"></button>
-            </div>
-            <p class="profile__subtitle">Путешественник по России</p>
+        <img src="#" alt="фото пользователя" class="profile__avatar" />
+        <button class="profile__avatar-editbutton" type="button" aria-label="редактировать"></button>
+        <div class="profile__info">
+          <div class="profile__title-editbtn">
+            <h1 class="profile__title"></h1>
+            <button type="button" class="profile__edit-button" aria-label="редактировать"></button>
           </div>
+          <p class="profile__subtitle"></p>
         </div>
         <button class="profile__add-button" type="button" aria-label="добавить изображение"></button>
       </section>
@@ -81,7 +79,7 @@
         <form class="popup__form popup__form_type_editavatar" name="editavatar" novalidate>
           <input type="url" class="popup__input popup__input_type_editavatar" name="avatar" id="userfoto"
             placeholder="Ссылка на фото пользователя" required>
-          <span class="error-massage error-massage_visible"></span>
+          <span id="error-userfoto" class="error-massage error-massage_visible"></span>
           <button class="popup__submit popup__submit_type_editavatar" type="submit">Сохранить</button>
         </form>
       </div>
@@ -100,11 +98,10 @@
     <li class="element">
       <button class="element__cardremove element__cardremove_hidden" type="button" aria-label="удалить"></button>
       <img src="#" class="element__image" alt="#" />
-      <div class="element__title">
-        <h2 class="element__text"></h2>
-        <button class="element__like" type="button" aria-label="поставить лайк"></button>
-        <p class="element__like-total"></p>
-      </div>
+      <div class="element__title"></div>
+      <h2 class="element__text"></h2>
+      <button class="element__like" type="button" aria-label="поставить лайк"></button>
+      <p class="element__like-total"></p>
     </li>
   </template>
 </body>

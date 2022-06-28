@@ -13,25 +13,17 @@ import { Api } from '../scripts/components/Api';
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile__avatar');
 
-function loadingProcess(form) {
-  const submitButton = form.querySelector('.popup__submit');
-  const previousContent = submitButton.textcontent;
-  submitButton.textcontent = 'Сохранение...';
-  return () => (submitButton.textcontent = previousContent);
-}
-
 const popupEditAvatar = new PopupWithForm('.popup_type_editavatar', (newAvatarData) => {
-  const data = loadingProcess(popupEditAvatar.getForm());
   api
     .recordNewAvatar(newAvatarData)
     .then((res) => {
       userInfo.setAvatar(res.avatar);
       popupEditAvatar.close();
+      loadingProcess(popupEditAvatar.getForm());
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
-    })
-    .finally(data);
+    });
 });
 
 popupEditAvatar.setEventListeners();
@@ -39,7 +31,7 @@ popupEditAvatar.setEventListeners();
 const popupAddNewAvatarValidator = new FormValidator(settingsObject, popupEditAvatar.getForm());
 popupAddNewAvatarValidator.enableValidation();
 
-const avatarEditButton = document.querySelector('.profile__avatar');
+const avatarEditButton = document.querySelector('.profile__avatar-editbutton');
 avatarEditButton.addEventListener('click', () => {
   popupEditAvatar.open();
   popupEditAvatar.setInputValues({
@@ -50,7 +42,6 @@ avatarEditButton.addEventListener('click', () => {
 });
 
 const popupEditProfile = new PopupWithForm('.popup_type_edit', (profileData) => {
-  const data = loadingProcess(popupEditProfile.getForm());
   api
     .setNewProfileSave(profileData)
     .then((res) => {
@@ -59,8 +50,7 @@ const popupEditProfile = new PopupWithForm('.popup_type_edit', (profileData) => 
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
-    })
-    .finally(data);
+    });
 });
 
 popupEditProfile.setEventListeners();
@@ -76,7 +66,6 @@ profileEditButton.addEventListener('click', () => {
 });
 
 const popupAddNewCard = new PopupWithForm('.popup_type_addcard', (cardData) => {
-  const data = loadingProcess(popupAddNewCard.getForm());
   api
     .recordNewCard(cardData)
     .then((res) => {
@@ -85,8 +74,7 @@ const popupAddNewCard = new PopupWithForm('.popup_type_addcard', (cardData) => {
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
-    })
-    .finally(data);
+    });
 });
 
 popupAddNewCard.setEventListeners();
@@ -101,24 +89,26 @@ addNewCardButton.addEventListener('click', () => {
 });
 
 const popupDeleteCard = new Popup('.popup_type_deletecard');
-popupDeleteCard.setEventListeners();
 
 const popupFullImage = new PopupWithImage('.popup_type_show');
 popupFullImage.setEventListeners();
 
 function createCard(cardData) {
+  console.log(cardData);
+  console.log(cardData._id);
   const card = new Card(
     userInfo.getOwnerId(),
     cardData,
     '.newcard-template',
     () => popupFullImage.open(cardData.name, cardData.link),
     () =>
-      popupDeleteCard.open(() => {
+      popupDeleteCard.open((evt) => {
+        evt.preventDefault();
+        popupDeleteCard.setEventListeners();
         api
-          .deleteCurrentCard(card.getCardId())
+          .deleteCurrentCard(cardData._id)
           .then(() => {
             card.removeCard();
-            popupDeleteCard.close();
           })
           .catch((err) => {
             console.log('Ошибка. Запрос не выполнен', err);
@@ -126,7 +116,11 @@ function createCard(cardData) {
       }),
     () => {
       const isLiked = card.isLiked() ? api.deleteLike(card.getCardId()) : api.addLike(card.getCardId());
-      isLiked.then((res) => card.updateLikes(res)).catch(err);
+      isLiked
+        .then((res) => card.updateLikes(res))
+        .catch((err) => {
+          console.log('Ошибка. Запрос не выполнен', err);
+        });
     }
   );
   return card.createCard();

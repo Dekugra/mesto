@@ -11,9 +11,3 @@
     margin: 0 auto 26px;
   }
 }
-
-.profile__avatar:hover {
-  cursor: pointer;
-  opacity: 0.6;
-  transition: opacity 0.5s linear;
-}
