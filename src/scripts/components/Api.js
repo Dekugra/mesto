@@ -30,15 +30,19 @@ export class Api {
   }
 
   recordNewCard(cardData) {
+    const body = {
+      name: cardData.name,
+      link: cardData.link,
+    };
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify(cardData),
+      body: JSON.stringify(body),
     }).then((res) => this._checkResponse(res));
   }
 
-  deleteCurrentCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}`, {
+  deleteCurrentCard(obj) {
+    return fetch(`${this._url}/cards/${obj._id}`, {
       method: 'DELETE',
       headers: this._headers,
     }).then((res) => this._checkResponse(res));

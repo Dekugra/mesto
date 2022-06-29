@@ -6,7 +6,6 @@ import { FormValidator } from '../scripts/components/FormValidator.js';
 import { Card } from '../scripts/components/Card.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Section } from '../scripts/components/Section.js';
-import { Popup } from '../scripts/components/Popup.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { Api } from '../scripts/components/Api';
@@ -19,7 +18,6 @@ const popupEditAvatar = new PopupWithForm('.popup_type_editavatar', (newAvatarDa
     .then((res) => {
       userInfo.setAvatar(res.avatar);
       popupEditAvatar.close();
-      loadingProcess(popupEditAvatar.getForm());
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
@@ -41,7 +39,7 @@ avatarEditButton.addEventListener('click', () => {
   popupEditAvatar.open();
 });
 
-const popupEditProfile = new PopupWithForm('.popup_type_edit', (profileData) => {
+function handlerEditProfile(profileData) {
   api
     .setNewProfileSave(profileData)
     .then((res) => {
@@ -51,10 +49,10 @@ const popupEditProfile = new PopupWithForm('.popup_type_edit', (profileData) => 
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
     });
-});
+}
 
+const popupEditProfile = new PopupWithForm('.popup_type_edit', handlerEditProfile);
 popupEditProfile.setEventListeners();
-
 const popupEditProfileValidator = new FormValidator(settingsObject, popupEditProfile.getForm());
 popupEditProfileValidator.enableValidation();
 
@@ -65,20 +63,19 @@ profileEditButton.addEventListener('click', () => {
   popupEditProfile.open();
 });
 
-const popupAddNewCard = new PopupWithForm('.popup_type_addcard', (cardData) => {
+function handlerAddNewCard(obj) {
   api
-    .recordNewCard(cardData)
+    .recordNewCard(obj)
     .then((res) => {
       section.addItem('prepend', createCard(res));
-      popupAddNewCard.close();
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
     });
-});
+}
 
+const popupAddNewCard = new PopupWithForm('.popup_type_addcard', handlerAddNewCard);
 popupAddNewCard.setEventListeners();
-
 const popupAddNewCardValidator = new FormValidator(settingsObject, popupAddNewCard.getForm());
 popupAddNewCardValidator.enableValidation();
 
@@ -88,40 +85,42 @@ addNewCardButton.addEventListener('click', () => {
   popupAddNewCard.open();
 });
 
-const popupDeleteCard = new Popup('.popup_type_deletecard');
+function handlerDeleteCard(cardData, cardElement) {
+  popupDeleteCard.open();
+  api
+    .deleteCurrentCard(cardData)
+    .then((res) => {
+      cardElement.removeCard();
+      popupDeleteCard.close();
+    })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен', err);
+    });
+}
+
+const popupDeleteCard = new PopupWithForm('.popup_type_deletecard', handlerDeleteCard);
+popupDeleteCard.setEventListeners();
 
 const popupFullImage = new PopupWithImage('.popup_type_show');
 popupFullImage.setEventListeners();
 
+function handleLike(obj) {
+  const isLiked = obj.isLiked() ? api.deleteLike(obj.getCardId()) : api.addLike(obj.getCardId());
+  isLiked
+    .then((res) => obj.updateLikes(res))
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен', err);
+    });
+}
+
 function createCard(cardData) {
-  console.log(cardData);
-  console.log(cardData._id);
   const card = new Card(
     userInfo.getOwnerId(),
     cardData,
     '.newcard-template',
     () => popupFullImage.open(cardData.name, cardData.link),
-    () =>
-      popupDeleteCard.open((evt) => {
-        evt.preventDefault();
-        popupDeleteCard.setEventListeners();
-        api
-          .deleteCurrentCard(cardData._id)
-          .then(() => {
-            card.removeCard();
-          })
-          .catch((err) => {
-            console.log('Ошибка. Запрос не выполнен', err);
-          });
-      }),
-    () => {
-      const isLiked = card.isLiked() ? api.deleteLike(card.getCardId()) : api.addLike(card.getCardId());
-      isLiked
-        .then((res) => card.updateLikes(res))
-        .catch((err) => {
-          console.log('Ошибка. Запрос не выполнен', err);
-        });
-    }
+    () => handlerDeleteCard(cardData, card),
+    () => handleLike(card)
   );
   return card.createCard();
 }

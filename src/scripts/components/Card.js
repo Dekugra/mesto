@@ -25,7 +25,7 @@ export class Card {
 
   removeCard() {
     this._templateElement = this._getTemplate();
-    cardElement.remove();
+    this._templateElement.remove();
   }
 
   isLiked() {
