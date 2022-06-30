@@ -11,11 +11,6 @@ export class PopupWithForm extends Popup {
     this._submitButton = this._form.querySelector('.popup__submit');
   }
 
-  loadingSavingProgress() {
-    this._previousContent = this._submitButton.textcontent;
-    this._submitButton.textcontent = 'Сохранение...';
-  }
-
   _getInputValues() {
     this._inputsValues = {};
     this._inputList.forEach((inputElement) => {
@@ -34,7 +29,13 @@ export class PopupWithForm extends Popup {
     this._form.addEventListener('submit', (event) => {
       event.preventDefault();
       this._submitHandler(this._getInputValues());
-      this.close();
+      setTimeout(() => {
+        this.close();
+        if (this._submitButton.classList.contains('popup__submit_type_editprofile')) return (this._submitButton.textContent = 'Сохранить');
+        if (this._submitButton.classList.contains('popup__submit_type_addcard')) return (this._submitButton.textContent = 'Создать');
+        if (this._submitButton.classList.contains('popup__submit_type_editavatar')) return (this._submitButton.textContent = 'Сохранить');
+        if (this._submitButton.classList.contains('popup__submit_type_deletecard')) return (this._submitButton.textContent = 'Да');
+      }, 2000);
     });
   }
 
