@@ -13,11 +13,14 @@ import { Api } from '../scripts/components/Api';
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile__avatar');
 
 const popupEditAvatar = new PopupWithForm('.popup_type_editavatar', (newAvatarData) => {
+  popupEditAvatar.loadingSavingProgress();
+  window.onload = document.querySelector('.popup__submit_type_editavatar').textContent = 'Сохранение...';
   api
     .recordNewAvatar(newAvatarData)
     .then((res) => {
       userInfo.setAvatar(res.avatar);
       popupEditAvatar.close();
+      window.onload = document.querySelector('.popup__submit_type_editavatar').textContent = 'Сохраненить';
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
@@ -40,11 +43,13 @@ avatarEditButton.addEventListener('click', () => {
 });
 
 function handlerEditProfile(profileData) {
+  window.onload = document.querySelector('.popup__submit_type_editprofile').textContent = 'Обновление...';
   api
     .setNewProfileSave(profileData)
     .then((res) => {
       userInfo.setUserInfo(res);
       popupEditProfile.close();
+      window.onload = document.querySelector('.popup__submit_type_editprofile').textContent = 'Сохранить';
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
@@ -64,10 +69,12 @@ profileEditButton.addEventListener('click', () => {
 });
 
 function handlerAddNewCard(obj) {
+  window.onload = document.querySelector('.popup__submit_type_addcard').textContent = 'Создание...';
   api
     .recordNewCard(obj)
     .then((res) => {
       section.addItem('prepend', createCard(res));
+      window.onload = document.querySelector('.popup__submit_type_addcard').textContent = 'Создать';
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
@@ -87,11 +94,13 @@ addNewCardButton.addEventListener('click', () => {
 
 function handlerDeleteCard(cardData, cardElement) {
   popupDeleteCard.open();
+  window.onload = document.querySelector('.popup__submit_type_deletecard').textContent = 'Удаление...';
   api
     .deleteCurrentCard(cardData)
     .then((res) => {
       cardElement.removeCard();
       popupDeleteCard.close();
+      window.onload = document.querySelector('.popup__submit_type_deletecard').textContent = 'Да';
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);

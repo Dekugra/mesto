@@ -13,26 +13,7 @@ export class PopupWithForm extends Popup {
 
   loadingSavingProgress() {
     this._previousContent = this._submitButton.textcontent;
-    this.close();
     this._submitButton.textcontent = 'Сохранение...';
-    this.open();
-    return () => (this._submitButton.textcontent = this._previousContent);
-  }
-
-  loadingChangimgProgress() {
-    this._previousContent = this._submitButton.textcontent;
-    this.close();
-    this._submitButton.textcontent = 'Обновление...';
-    this.open();
-    return () => (this._submitButton.textcontent = this._previousContent);
-  }
-
-  loadingDeletingProgress() {
-    this._previousContent = this._submitButton.textcontent;
-    this.close();
-    this._submitButton.textcontent = 'Удаление...';
-    this.open();
-    return () => (this._submitButton.textcontent = this._previousContent);
   }
 
   _getInputValues() {
