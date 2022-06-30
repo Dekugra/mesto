@@ -15,15 +15,14 @@
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__section-content">
-          <img src="a867625fbc02315cc99a.jpg" alt="фото Жак-Ива Кусто" class="profile__avatar" />
-          <div class="profile__info">
-            <div class="profile__title-editbtn">
-              <h1 class="profile__title">Федор Конюхов</h1>
-              <button type="button" class="profile__edit-button" aria-label="редактировать"></button>
-            </div>
-            <p class="profile__subtitle">Путешественник по России</p>
+        <img src="#" alt="фото пользователя" class="profile__avatar" />
+        <button class="profile__avatar-editbutton" type="button" aria-label="редактировать"></button>
+        <div class="profile__info">
+          <div class="profile__title-editbtn">
+            <h1 class="profile__title"></h1>
+            <button type="button" class="profile__edit-button" aria-label="редактировать"></button>
           </div>
+          <p class="profile__subtitle"></p>
         </div>
         <button class="profile__add-button" type="button" aria-label="добавить изображение"></button>
       </section>
@@ -40,14 +39,14 @@
         <button class="popup__close popup__close_type_edit" type="button" aria-label="Закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="popup__form popup__form_type_edit" method="get" name="popupedit" novalidate>
-          <input id="username" type="text" class="popup__input popup__input_type_username" name="username"
+          <input id="username" type="text" class="popup__input popup__input_type_username" name="name"
             placeholder="Введите имя" value="" minlength="2" maxlength="40" required />
           <span id="error-username"
             class="error-massage error-massage_visible error-massage error-massage_type_username"></span>
           <input id="about" type="text" class="popup__input popup__input_type_about" name="about" value=""
             placeholder="Кратко о себе" required minlength="2" maxlength="200" />
           <span id="error-about" class="error-massage error-massage_visible"></span>
-          <button class="popup__submit" type="submit">Сохранить</button>
+          <button class="popup__submit popup__submit_type_editprofile" type="submit">Сохранить</button>
         </form>
       </div>
     </section>
@@ -73,15 +72,36 @@
         <h3 class="popup__titleshow">Место</h3>
       </div>
     </section>
+    <section class="popup popup_type_editavatar">
+      <div class="popup__container">
+        <button class="popup__close popup__close_type_editavatar" type="button" aria-label="закрыть"></button>
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form class="popup__form popup__form_type_editavatar" name="editavatar" novalidate>
+          <input type="url" class="popup__input popup__input_type_editavatar" name="avatar" id="userfoto"
+            placeholder="Ссылка на фото пользователя" required>
+          <span id="error-userfoto" class="error-massage error-massage_visible"></span>
+          <button class="popup__submit popup__submit_type_editavatar" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </section>
+    <section class="popup popup_type_deletecard">
+      <div class="popup__container">
+        <button class="popup__close popup__close_type_deletecard" type="button" aria-label="закрыть"></button>
+        <h3 class="popup__title">Вы уверены?</h3>
+        <form class="popup__form popup__form_type_deletecard" name="deletecard" novalidate>
+          <button class="popup__submit popup__submit_type_deletecard" type="button">Да</button>
+        </form>
+      </div>
+    </section>
   </div>
   <template class="newcard-template">
     <li class="element">
-      <button class="element__cardremove" type="button" aria-label="удалить"></button>
+      <button class="element__cardremove element__cardremove_hidden" type="button" aria-label="удалить"></button>
       <img src="#" class="element__image" alt="#" />
-      <div class="element__title">
-        <h2 class="element__text"></h2>
-        <button class="element__like" type="button" aria-label="поставить лайк"></button>
-      </div>
+      <div class="element__title"></div>
+      <h2 class="element__text"></h2>
+      <button class="element__like" type="button" aria-label="поставить лайк"></button>
+      <p class="element__like-total"></p>
     </li>
   </template>
 </body>
