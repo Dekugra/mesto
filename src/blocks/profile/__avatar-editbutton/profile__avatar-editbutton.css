@@ -14,7 +14,6 @@
 
 .profile__avatar-editbutton:hover {
   display: block;
-  cursor: pointer;
   opacity: 0.8;
   transition: opacity 0.5s linear;
 }

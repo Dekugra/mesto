@@ -1,19 +1,22 @@
 import '../pages/index.css';
 
-import { settingsObject } from '../scripts/initial-data';
+import { settingsObject } from '../scripts/utils/constants.js';
 
 import { FormValidator } from '../scripts/components/FormValidator.js';
 import { Card } from '../scripts/components/Card.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Section } from '../scripts/components/Section.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
+import { PopupWithConfirmation } from '../scripts/components/PopupWithConfirmation.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { Api } from '../scripts/components/Api';
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile__avatar');
 
+// попап редактирования аватара с интерактивным содержанием кнопки сабмита
 const popupEditAvatar = new PopupWithForm('.popup_type_editavatar', (newAvatarData) => {
-  window.onload = document.querySelector('.popup__submit_type_editavatar').textContent = 'Сохранение...';
+  let isLoading = true;
+  popupEditAvatar.renderLoading(isLoading);
   api
     .recordNewAvatar(newAvatarData)
     .then((res) => {
@@ -21,14 +24,21 @@ const popupEditAvatar = new PopupWithForm('.popup_type_editavatar', (newAvatarDa
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
+    })
+    .finally(() => {
+      isLoading = false;
+      popupEditAvatar.renderLoading(isLoading);
+      popupEditAvatar.close();
     });
 });
 
 popupEditAvatar.setEventListeners();
 
+// валидатор формы добавления нового аватара
 const popupAddNewAvatarValidator = new FormValidator(settingsObject, popupEditAvatar.getForm());
 popupAddNewAvatarValidator.enableValidation();
 
+// листенер кнопки добавления нового аватара
 const avatarEditButton = document.querySelector('.profile__avatar-editbutton');
 avatarEditButton.addEventListener('click', () => {
   popupEditAvatar.open();
@@ -39,8 +49,10 @@ avatarEditButton.addEventListener('click', () => {
   popupEditAvatar.open();
 });
 
+// хендлер попапа редактирования профиля с интерактивным содержанием кнопки сабмита
 function handlerEditProfile(profileData) {
-  window.onload = document.querySelector('.popup__submit_type_editprofile').textContent = 'Обновление...';
+  let isLoading = true;
+  popupEditProfile.renderLoading(isLoading);
   api
     .setNewProfileSave(profileData)
     .then((res) => {
@@ -48,14 +60,23 @@ function handlerEditProfile(profileData) {
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
+    })
+    .finally(() => {
+      isLoading = false;
+      popupEditProfile.renderLoading(isLoading);
+      popupEditProfile.close();
     });
 }
 
+// попап редактирования профиля
 const popupEditProfile = new PopupWithForm('.popup_type_edit', handlerEditProfile);
 popupEditProfile.setEventListeners();
+
+// валидатор формы редактирования профиля
 const popupEditProfileValidator = new FormValidator(settingsObject, popupEditProfile.getForm());
 popupEditProfileValidator.enableValidation();
 
+// листенер кнопки редактирования профиля
 const profileEditButton = document.querySelector('.profile__edit-button');
 profileEditButton.addEventListener('click', () => {
   popupEditProfile.setInputValues(userInfo.getUserInfo());
@@ -63,8 +84,10 @@ profileEditButton.addEventListener('click', () => {
   popupEditProfile.open();
 });
 
+// хендлер попапа добавления новой карточки с интерактивным содержанием кнопки сабмита
 function handlerAddNewCard(obj) {
-  window.onload = document.querySelector('.popup__submit_type_addcard').textContent = 'Создание...';
+  let isLoading = true;
+  popupAddNewCard.renderLoading(isLoading);
   api
     .recordNewCard(obj)
     .then((res) => {
@@ -72,45 +95,61 @@ function handlerAddNewCard(obj) {
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
+    })
+    .finally(() => {
+      isLoading = false;
+      popupAddNewCard.renderLoading(isLoading);
+      popupAddNewCard.close();
     });
 }
 
+// попап добавления новой карточки
 const popupAddNewCard = new PopupWithForm('.popup_type_addcard', handlerAddNewCard);
 popupAddNewCard.setEventListeners();
+
+// валидатор формы добавления новой карточки
 const popupAddNewCardValidator = new FormValidator(settingsObject, popupAddNewCard.getForm());
 popupAddNewCardValidator.enableValidation();
 
+// листенер кнопки добавления новой карточки
 const addNewCardButton = document.querySelector('.profile__add-button');
 addNewCardButton.addEventListener('click', () => {
   popupAddNewCardValidator.resetValidation();
   popupAddNewCard.open();
 });
 
-function handlerDeleteCard(cardData, cardElement) {
+// попап удаления карточки
+const popupDeleteCard = new PopupWithConfirmation('.popup_type_deletecard');
+
+// хендлер попапа удаления карточки
+function handlerDeleteCard(obj) {
   popupDeleteCard.open();
   const button = document.querySelector('.popup__submit_type_deletecard');
   button.addEventListener('click', () => {
-    window.onload = document.querySelector('.popup__submit_type_deletecard').textContent = 'Удаление...';
+    popupDeleteCard.renderLoading(true);
     setTimeout(() => {
-      popupDeleteCard.close();
       api
-        .deleteCurrentCard(cardData)
+        .deleteCurrentCard(obj)
         .then((res) => {
           console.log(res);
+          popupDeleteCard.close();
         })
         .catch((err) => {
           console.log('Ошибка. Запрос не выполнен', err);
+        })
+        .finally(() => {
+          let isLoading = false;
+          popupDeleteCard.renderLoading(isLoading);
         });
-    }, 2000);
+    }, 1000);
   });
 }
 
-const popupDeleteCard = new PopupWithForm('.popup_type_deletecard', handlerDeleteCard);
-popupDeleteCard.setEventListeners();
-
+// попап просмотра карточки в расширенном размере
 const popupFullImage = new PopupWithImage('.popup_type_show');
 popupFullImage.setEventListeners();
 
+// хендлер удаления/добавления лайка карточки
 function handleLike(obj) {
   const isLiked = obj.isLiked() ? api.deleteLike(obj.getCardId()) : api.addLike(obj.getCardId());
   isLiked
@@ -120,13 +159,14 @@ function handleLike(obj) {
     });
 }
 
+// создание карточки с хендлерами предпросмотра/удаления/лайков
 function createCard(cardData) {
   const card = new Card(
     userInfo.getOwnerId(),
     cardData,
     '.newcard-template',
     () => popupFullImage.open(cardData.name, cardData.link),
-    () => handlerDeleteCard(cardData, card),
+    () => handlerDeleteCard(cardData),
     () => handleLike(card)
   );
   return card.createCard();
@@ -134,14 +174,16 @@ function createCard(cardData) {
 
 const section = new Section((cardData) => section.addItem('append', createCard(cardData)), '.elements__items');
 
+// класс отправки запросов на сервер
 const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-43',
+  url: 'https://mesto.nomoreparties.co/v1/cohort-45',
   headers: {
-    authorization: '0995599a-a862-4c60-8c4a-4545a98375c7',
+    authorization: '3d2f6fc9-c8b6-4135-a900-76b411c920b6',
     'Content-Type': 'application/json',
   },
 });
 
+// отрисовка карточек/аватара/инфо пользователя
 Promise.all([api.getUserInfo(), api.getInitCards()])
   .then((res) => {
     userInfo.setAvatar(res[0].avatar);
