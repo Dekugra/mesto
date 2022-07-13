@@ -3,7 +3,6 @@ export class UserInfo {
     this._name = document.querySelector(profileName);
     this._about = document.querySelector(profileAbout);
     this._avatar = document.querySelector(profileAvatar);
-    this._id = 0;
   }
 
   getUserInfo() {
@@ -13,18 +12,15 @@ export class UserInfo {
     };
   }
 
-  setUserInfo({ _id, name, about }) {
+  setUserInfo({ name, about, avatar, _id }) {
     this._name.textContent = name;
     this._about.textContent = about;
+    this._avatar = avatar;
     this._id = _id;
   }
 
   getOwnerId() {
     return this._id;
-  }
-
-  getAvatar() {
-    return this._avatar.src;
   }
 
   setAvatar(avatar) {

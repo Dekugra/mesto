@@ -21,6 +21,7 @@ const popupEditAvatar = new PopupWithForm('.popup_type_editavatar', (newAvatarDa
     .recordNewAvatar(newAvatarData)
     .then((res) => {
       userInfo.setAvatar(res.avatar);
+      popupEditAvatar.close();
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
@@ -28,7 +29,6 @@ const popupEditAvatar = new PopupWithForm('.popup_type_editavatar', (newAvatarDa
     .finally(() => {
       isLoading = false;
       popupEditAvatar.renderLoading(isLoading);
-      popupEditAvatar.close();
     });
 });
 
@@ -42,11 +42,7 @@ popupAddNewAvatarValidator.enableValidation();
 const avatarEditButton = document.querySelector('.profile__avatar-editbutton');
 avatarEditButton.addEventListener('click', () => {
   popupEditAvatar.open();
-  popupEditAvatar.setInputValues({
-    avatar: userInfo.getAvatar(),
-  });
   popupAddNewAvatarValidator.resetValidation();
-  popupEditAvatar.open();
 });
 
 // хендлер попапа редактирования профиля с интерактивным содержанием кнопки сабмита
@@ -57,6 +53,7 @@ function handlerEditProfile(profileData) {
     .setNewProfileSave(profileData)
     .then((res) => {
       userInfo.setUserInfo(res);
+      popupEditProfile.close();
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
@@ -64,7 +61,6 @@ function handlerEditProfile(profileData) {
     .finally(() => {
       isLoading = false;
       popupEditProfile.renderLoading(isLoading);
-      popupEditProfile.close();
     });
 }
 
@@ -92,6 +88,7 @@ function handlerAddNewCard(obj) {
     .recordNewCard(obj)
     .then((res) => {
       section.addItem('prepend', createCard(res));
+      popupAddNewCard.close();
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен', err);
@@ -99,7 +96,6 @@ function handlerAddNewCard(obj) {
     .finally(() => {
       isLoading = false;
       popupAddNewCard.renderLoading(isLoading);
-      popupAddNewCard.close();
     });
 }
 
@@ -122,17 +118,17 @@ addNewCardButton.addEventListener('click', () => {
 const popupDeleteCard = new PopupWithConfirmation('.popup_type_deletecard');
 
 // хендлер попапа удаления карточки
-function handlerDeleteCard(obj) {
+function handlerDeleteCard(obj, card) {
   popupDeleteCard.open();
-  const button = document.querySelector('.popup__submit_type_deletecard');
-  button.addEventListener('click', () => {
+  popupDeleteCard.setEventListeners();
+  popupDeleteCard.submitButton().addEventListener('mousedown', () => {
     popupDeleteCard.renderLoading(true);
     setTimeout(() => {
       api
         .deleteCurrentCard(obj)
         .then((res) => {
           console.log(res);
-          popupDeleteCard.close();
+          card.removeCard();
         })
         .catch((err) => {
           console.log('Ошибка. Запрос не выполнен', err);
@@ -166,10 +162,10 @@ function createCard(cardData) {
     cardData,
     '.newcard-template',
     () => popupFullImage.open(cardData.name, cardData.link),
-    () => handlerDeleteCard(cardData),
+    () => handlerDeleteCard(cardData, card),
     () => handleLike(card)
   );
-  return card.createCard();
+  return card.makeCard();
 }
 
 const section = new Section((cardData) => section.addItem('append', createCard(cardData)), '.elements__items');

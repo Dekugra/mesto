@@ -24,7 +24,6 @@ export class Card {
   }
 
   removeCard() {
-    this._templateElement = this._getTemplate();
     this._templateElement.remove();
   }
 
@@ -38,14 +37,20 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._templateElement.querySelector('.element__image').addEventListener('click', this._handleCardClick);
-    this._templateElement.querySelector('.element__cardremove').addEventListener('click', this._handleDelete);
-    this._templateElement.querySelector('.element__like').addEventListener('click', this._handleike);
+    this._image = this._templateElement.querySelector('.element__image');
+    this._trashButton = this._templateElement.querySelector('.element__cardremove');
+    this._likeElement = this._templateElement.querySelector('.element__like');
+
+    this._image.addEventListener('click', this._handleCardClick);
+    this._trashButton.addEventListener('click', this._handleDelete);
+    this._likeElement.addEventListener('click', this._handleike);
+  }
+
+  removeTrashButtonListener() {
+    this._trashButton.removeEventListener('click', this._handleDelete);
   }
 
   _renderLikes() {
-    const elementTitle = this._templateElement.querySelector('.element__title');
-    this._likeElement = this._templateElement.querySelector('.element__like');
     if (this.isLiked()) {
       this._likeElement.classList.add('element__like_liked');
     } else {
@@ -54,18 +59,17 @@ export class Card {
     this._templateElement.querySelector('.element__like-total').textContent = this._likes.length;
   }
 
-  createCard() {
-    this._element = this._getTemplate();
+  makeCard() {
+    this._getTemplate();
     this._setEventListeners();
 
     this._templateElement.querySelector('.element__title').textContent = this._name;
-
-    const cardImage = this._templateElement.querySelector('.element__image');
+    const cardImage = this._image;
     cardImage.alt = this._name;
     cardImage.src = this._link;
 
     if (this._myId === this._ownerObj._id) {
-      const delButton = this._templateElement.querySelector('.element__cardremove');
+      const delButton = this._trashButton;
       delButton.classList.remove('element__cardremove_hidden');
     }
 

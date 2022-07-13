@@ -8,22 +8,16 @@ export class PopupWithForm extends Popup {
     this._submitHandler = submitHandler;
     this._form = this._popup.querySelector(settingsObject.formSelector);
     this._inputList = Array.from(this._form.querySelectorAll(settingsObject.inputSelector));
-
-    this._saveAvatarBatton = document.querySelector('.popup__submit_type_editavatar');
-    this._editProfileBatton = document.querySelector('.popup__submit_type_editprofile');
-    this._addCardBatton = document.querySelector('.popup__submit_type_addcard');
+    this._submitButton = this._form.querySelector(settingsObject.submitButtonSelector);
   }
 
   renderLoading(isLoading) {
-    if (isLoading) {
-      this._saveAvatarBatton.textContent = 'Сохранение...';
-      this._editProfileBatton.textContent = 'Сохранение...';
-      this._addCardBatton.textContent = 'Создание...';
-    } else {
-      this._saveAvatarBatton.textContent = 'Сохранить';
-      this._editProfileBatton.textContent = 'Сохранить';
-      this._addCardBatton.textContent = 'Создать';
-    }
+    if (isLoading && (this._form.classList.contains = 'popup__form_type_editavatar')) return (this._submitButton.textContent = 'Сохранение...');
+    if (!isLoading && (this._form.classList.contains = 'popup__form_type_editavatar')) return (this._submitButton.textContent = 'Сохранить');
+    if (isLoading && (this._form.classList.contains = 'popup__form_type_edit')) return (this._submitButton.textContent = 'Сохранение...');
+    if (!isLoading && (this._form.classList.contains = 'popup__form_type_edit')) return (this._submitButton.textContent = 'Сохранить');
+    if (isLoading && (this._form.classList.contains = 'popup__form_type_addcard')) return (this._submitButton.textContent = 'Создание...');
+    if (!isLoading && (this._form.classList.contains = 'popup__form_type_addcard')) return (this._submitButton.textContent = 'Создать');
   }
 
   _getInputValues() {

@@ -12,17 +12,15 @@ export class PopupWithConfirmation extends Popup {
     else this._deleteButton.textContent = 'Да';
   }
 
-  _handlePopupClick(event) {
-    const targetObject = event.target.classList;
-    if (targetObject.contains('popup_opened') || targetObject.contains('popup__close')) {
-      this.close();
-    }
-  }
-
   setEventListeners() {
     super.setEventListeners();
-    this._popup.addEventListener('click', (ev) => {
+    this._deleteButton.addEventListener('click', () => {
       this.renderLoading(true);
+      this.close();
     });
+  }
+
+  submitButton() {
+    return this._deleteButton;
   }
 }
