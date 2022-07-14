@@ -5,22 +5,25 @@ export class PopupWithConfirmation extends Popup {
     super(popupSelector);
 
     this._deleteButton = this._popup.querySelector('.popup__submit_type_deletecard');
+    this._textSubmitButton = this._deleteButton.textContent;
   }
 
   renderLoading(isLoading) {
     if (isLoading) this._deleteButton.textContent = 'Удаление...';
-    else this._deleteButton.textContent = 'Да';
+    else this._deleteButton.textContent = this._textSubmitButton;
+  }
+
+  setSubmitHeandler(heandleSubmit) {
+    this._heandleSubmit = heandleSubmit;
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._deleteButton.addEventListener('click', () => {
       this.renderLoading(true);
-      this.close();
+      this._heandleSubmit();
     });
-  }
 
-  submitButton() {
     return this._deleteButton;
   }
 }

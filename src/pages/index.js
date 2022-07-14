@@ -15,8 +15,7 @@ const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile
 
 // попап редактирования аватара с интерактивным содержанием кнопки сабмита
 const popupEditAvatar = new PopupWithForm('.popup_type_editavatar', (newAvatarData) => {
-  let isLoading = true;
-  popupEditAvatar.renderLoading(isLoading);
+  popupEditAvatar.renderLoading(true);
   api
     .recordNewAvatar(newAvatarData)
     .then((res) => {
@@ -27,8 +26,7 @@ const popupEditAvatar = new PopupWithForm('.popup_type_editavatar', (newAvatarDa
       console.log('Ошибка. Запрос не выполнен', err);
     })
     .finally(() => {
-      isLoading = false;
-      popupEditAvatar.renderLoading(isLoading);
+      popupEditAvatar.renderLoading(false);
     });
 });
 
@@ -47,8 +45,7 @@ avatarEditButton.addEventListener('click', () => {
 
 // хендлер попапа редактирования профиля с интерактивным содержанием кнопки сабмита
 function handlerEditProfile(profileData) {
-  let isLoading = true;
-  popupEditProfile.renderLoading(isLoading);
+  popupEditProfile.renderLoading(true);
   api
     .setNewProfileSave(profileData)
     .then((res) => {
@@ -59,8 +56,7 @@ function handlerEditProfile(profileData) {
       console.log('Ошибка. Запрос не выполнен', err);
     })
     .finally(() => {
-      isLoading = false;
-      popupEditProfile.renderLoading(isLoading);
+      popupEditProfile.renderLoading(false);
     });
 }
 
@@ -82,8 +78,7 @@ profileEditButton.addEventListener('click', () => {
 
 // хендлер попапа добавления новой карточки с интерактивным содержанием кнопки сабмита
 function handlerAddNewCard(obj) {
-  let isLoading = true;
-  popupAddNewCard.renderLoading(isLoading);
+  popupAddNewCard.renderLoading(true);
   api
     .recordNewCard(obj)
     .then((res) => {
@@ -94,8 +89,7 @@ function handlerAddNewCard(obj) {
       console.log('Ошибка. Запрос не выполнен', err);
     })
     .finally(() => {
-      isLoading = false;
-      popupAddNewCard.renderLoading(isLoading);
+      popupAddNewCard.renderLoading(false);
     });
 }
 
@@ -116,28 +110,27 @@ addNewCardButton.addEventListener('click', () => {
 
 // попап удаления карточки
 const popupDeleteCard = new PopupWithConfirmation('.popup_type_deletecard');
+popupDeleteCard.setEventListeners();
 
 // хендлер попапа удаления карточки
 function handlerDeleteCard(obj, card) {
   popupDeleteCard.open();
-  popupDeleteCard.setEventListeners();
-  popupDeleteCard.submitButton().addEventListener('mousedown', () => {
+  popupDeleteCard.setSubmitHeandler(() => {
     popupDeleteCard.renderLoading(true);
-    setTimeout(() => {
-      api
-        .deleteCurrentCard(obj)
-        .then((res) => {
-          console.log(res);
-          card.removeCard();
-        })
-        .catch((err) => {
-          console.log('Ошибка. Запрос не выполнен', err);
-        })
-        .finally(() => {
-          let isLoading = false;
-          popupDeleteCard.renderLoading(isLoading);
-        });
-    }, 1000);
+    api
+      .deleteCurrentCard(obj)
+      .then((res) => {
+        console.log(res);
+        card.removeCard();
+        popupDeleteCard.close();
+      })
+      .catch((err) => {
+        console.log('Ошибка. Запрос не выполнен', err);
+      })
+      .finally(() => {
+        popupDeleteCard.renderLoading(false);
+      });
+    popupDeleteCard.open();
   });
 }
 

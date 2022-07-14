@@ -9,15 +9,12 @@ export class PopupWithForm extends Popup {
     this._form = this._popup.querySelector(settingsObject.formSelector);
     this._inputList = Array.from(this._form.querySelectorAll(settingsObject.inputSelector));
     this._submitButton = this._form.querySelector(settingsObject.submitButtonSelector);
+    this._textSubmitButton = this._submitButton.textContent;
   }
 
   renderLoading(isLoading) {
-    if (isLoading && (this._form.classList.contains = 'popup__form_type_editavatar')) return (this._submitButton.textContent = 'Сохранение...');
-    if (!isLoading && (this._form.classList.contains = 'popup__form_type_editavatar')) return (this._submitButton.textContent = 'Сохранить');
-    if (isLoading && (this._form.classList.contains = 'popup__form_type_edit')) return (this._submitButton.textContent = 'Сохранение...');
-    if (!isLoading && (this._form.classList.contains = 'popup__form_type_edit')) return (this._submitButton.textContent = 'Сохранить');
-    if (isLoading && (this._form.classList.contains = 'popup__form_type_addcard')) return (this._submitButton.textContent = 'Создание...');
-    if (!isLoading && (this._form.classList.contains = 'popup__form_type_addcard')) return (this._submitButton.textContent = 'Создать');
+    if (isLoading) return (this._submitButton.textContent = 'Сохранение...');
+    else return (this._submitButton.textContent = this._textSubmitButton);
   }
 
   _getInputValues() {
